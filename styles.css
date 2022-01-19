@@ -1,0 +1,60 @@
+body {
+	display: flex;
+	background-color: #121214;
+	align-items: center;
+	justify-content: center;
+}
+
+.status {
+	font-family: sans-serif;
+	font-size: 18px;
+	margin: 24px;
+}
+
+.gamespace {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.square {
+	display: flex;
+	width: 64px;
+	height: 64px;
+	justify-content: center;
+	font-family: sans-serif;
+    align-items: center;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: bold;
+    color: #d7dadc;
+    border: 2px solid #3a3a3b;
+    text-transform: uppercase;
+    user-select: none;
+    margin: 3px;
+}
+
+.correct {
+	background-color: #538d4e;
+}
+
+.partially-correct {
+	background-color: #b59f3b;
+}
+
+.incorrect {
+	background-color: #3a3a3b;
+}
+
+.button {
+	position: relative;
+	bottom: 0;
+	width: 80;
+	height: 30;
+}
