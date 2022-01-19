@@ -52,7 +52,6 @@ function setup() {
 
 function chooseRandomTarget() {
 	target = small_dictionary[randomInt(small_dictionary.length)]
-	console.log(target)
 }
 
 function setupGrid() {
@@ -139,14 +138,14 @@ function markKeyIncorrect(letter) {
 }
 
 function recordWin() {
-	status.innerHTML = "You win!\n"
+	status.innerHTML = "You win!"
 	status.style.color = "#60cc5c"
 	addPlayAgainButton()
 	statusEnum = "WON"
 }
 
 function recordLoss(wordIndex) {
-	status.innerHTML = "You lose!\n"
+	status.innerHTML = `You lose! The word was ${target}`
 	status.style.color = "#cc5c5c"
 	status.style.color = "#cc5c5c"
 	statusEnum = "LOST"
