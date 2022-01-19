@@ -187,16 +187,26 @@ function setupKeyPressListener() {
 	})
 }
 
+function onKeyClick(key) {
+  if (statusEnum === "PLAYING") {
+    if (key === "\u21A9") submitGuess()
+    else if (key === "\u232B") backspace()
+    else type(key)
+
+  }
+}
+
 function setupKeyboard() {
-  ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"].forEach((letters) => {
+  ["QWERTYUIOP", "ASDFGHJKL", "\u21A9ZXCVBNM\u232B"].forEach((letters) => {
     let row = document.createElement("div")
     row.classList.add("row")
     keyboard.appendChild(row)
+    console.log(letters.split(''))
     letters.split('').forEach((letter) => {
       let key = document.createElement("button")
       key.className = "key untested"
       key.innerHTML = letter
-      key.onclick = () => type(letter)
+      key.onclick = () => onKeyClick(letter)
       row.appendChild(key)
       keys.set(letter, key)
     })

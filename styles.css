@@ -56,6 +56,10 @@ body {
     background-color: #818384;
 }
 
+.specialKey {
+    background-color: #616364;
+}
+
 .button {
 	position: relative;
 	bottom: 0;
