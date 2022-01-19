@@ -12,11 +12,13 @@ let target
 let cursor
 let statusEnum
 
-let grid = document.getElementById("grid")
-let status = document.getElementById("status")
-let gamespace = document.getElementById("gamespace")
+const grid = document.getElementById("grid")
+const status = document.getElementById("status")
+const gamespace = document.getElementById("gamespace")
 let button
 let squares = new Map()
+const keyboard = document.getElementById("keyboard")
+let keys = new Map()
 
 setup()
 
@@ -44,6 +46,7 @@ function resetStatus() {
 function setup() {
 	setupGrid()
 	setupKeyPressListener()
+  setupKeyboard()
 	reset()
 }
 
@@ -95,10 +98,11 @@ function check({wordIndex, word}) {
 		const square = squares.get(toSquareKey({wordIndex, charIndex}))
 		if (targetLetters[charIndex] === guessLetters[charIndex]) {
 			square.classList.add("correct")
+      markKeyCorrect(targetLetters[charIndex])
 			targetLetters[charIndex] = null
 			guessLetters[charIndex] = null
 		}
-		if (targetLetters.filter(x => !!x).length === 0) recordWin(wordIndex)
+		if (targetLetters.filter(x => !!x).length === 0) recordWin()
 	}
 
 	for (let charIndex = 0; charIndex < WORD_LENGTH; charIndex++) {
@@ -107,21 +111,34 @@ function check({wordIndex, word}) {
 		if (value) {
 			if (targetLetters.includes(value)) {
 				square.classList.add("partially-correct")
+        markKeyPartiallyCorrect(value)
 				targetLetters[targetLetters.indexOf(value)] = null
 				guessLetters[charIndex] = null
 			} else {
 				square.classList.add("incorrect");
+        markKeyIncorrect(value)
 			}
 		}
 	}
 	if (wordIndex === MAX_ATTEMPTS - 1) recordLoss()
 }
 
-function countChar(word, char) {
-	return (word.match(new RegExp(char, 'g')) || []).length
+function markKeyCorrect(letter) {
+  keys.get(letter).className = "key correct"
 }
 
-function recordWin(wordIndex) {
+function markKeyPartiallyCorrect(letter) {
+  key = keys.get(letter)
+  if (!key.className.includes("key correct")) {
+    key.className = "key partially-correct"
+  }
+}
+
+function markKeyIncorrect(letter) {
+  keys.get(letter).className = "key incorrect"
+}
+
+function recordWin() {
 	status.innerHTML = "You win!\n"
 	status.style.color = "#60cc5c"
 	addPlayAgainButton()
@@ -140,7 +157,7 @@ function addPlayAgainButton() {
 	button.innerHTML = "Play again"
 	button.classList.add("button")
 	gamespace.appendChild(button)
-	button.onclick = function () {reset()}
+	button.onclick = reset
 }
 
 function type(char) {
@@ -162,11 +179,27 @@ function setupKeyPressListener() {
 		if (statusEnum === "PLAYING") {
 			if (event.key === "Enter") submitGuess()
 			if (event.key === "Backspace") backspace()
-			if (event.key.match(/^[a-zA-Z]$/) && !event.metaKey && !event.cntrlKey) {
+			if (event.key.match(/^[a-zA-Z]$/) && !event.metaKey && !event.ctrlKey) {
 				type(event.key)
 			}
 		} else {
 			if (event.key === "Enter") reset()
 		}
 	})
+}
+
+function setupKeyboard() {
+  ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"].forEach((letters) => {
+    let row = document.createElement("div")
+    row.classList.add("row")
+    keyboard.appendChild(row)
+    letters.split('').forEach((letter) => {
+      let key = document.createElement("button")
+      key.className = "key untested"
+      key.innerHTML = letter
+      key.onclick = () => type(letter)
+      row.appendChild(key)
+      keys.set(letter, key)
+    })
+  })
 }
