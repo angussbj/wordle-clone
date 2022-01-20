@@ -24,6 +24,7 @@ setup()
 
 function reset() {
 	clearGrid()
+  clearKeyboard()
 	resetStatus()
 	chooseRandomTarget()
 	if (button) button.remove()
@@ -35,6 +36,12 @@ function clearGrid() {
 		square.innerHTML = ""
 		square.className = "square"
 	})
+}
+
+function clearKeyboard() {
+  keys.forEach(key => {
+    key.className = "key untested"
+  })
 }
 
 function resetStatus() {
@@ -72,11 +79,6 @@ function toSquareKey({wordIndex, charIndex}) {
 	return `${wordIndex},${charIndex}`
 }
 
-function fromSquareKey(key) {
-	const parts = key.split(',')
-	return {wordIndex: parts[0], charIndex: parts[1]}
-}
-
 function submitGuess() {
 	let word = ""
 	for (let charIndex = 0; charIndex < WORD_LENGTH; charIndex++) {
@@ -86,6 +88,7 @@ function submitGuess() {
 		check({wordIndex: cursor.wordIndex, word})
 		cursor.wordIndex += 1 
 		cursor.charIndex = 0
+    console.log(cursor.wordIndex)
 	}
 }
 
@@ -119,7 +122,7 @@ function check({wordIndex, word}) {
 			}
 		}
 	}
-	if (wordIndex === MAX_ATTEMPTS - 1) recordLoss()
+	if (statusEnum === "PLAYING" && wordIndex === MAX_ATTEMPTS - 1) recordLoss()
 }
 
 function markKeyCorrect(letter) {
@@ -148,6 +151,7 @@ function recordLoss(wordIndex) {
 	status.innerHTML = `You lose! The word was ${target}`
 	status.style.color = "#cc5c5c"
 	status.style.color = "#cc5c5c"
+  addPlayAgainButton()
 	statusEnum = "LOST"
 }
 
@@ -192,7 +196,6 @@ function onKeyClick(key) {
     if (key === "\u21A9") submitGuess()
     else if (key === "\u232B") backspace()
     else type(key)
-
   }
 }
 
