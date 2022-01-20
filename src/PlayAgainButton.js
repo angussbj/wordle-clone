@@ -3,7 +3,7 @@ export class PlayAgainButton {
     const gamespace = document.getElementById("gamespace")
     this.button = document.createElement("button")
     this.button.innerHTML = "Play again"
-    this.button.classList.add("button")
+    this.button.classList.add("play-again")
     gamespace.appendChild(this.button)
     this.button.onclick = reset
     this.button.style.visibility = "hidden"

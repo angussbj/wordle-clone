@@ -5,7 +5,7 @@ export class Status {
   }
 
   reset() {
-    this.status.innerHTML = "Type your guess and press enter"
+    this.status.innerHTML = ""
     this.status.style.color = "#d7dadc"
     this.statusEnum = "PLAYING"
   }

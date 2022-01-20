@@ -45,5 +45,5 @@ function setMinus(setA, setB) {
 const small = Array.from(setMinus(intersection(intersection(fiveHundredK, tenK), scrabble), names))
 const big = Array.from(union(fiveHundredK, union(tenK, scrabble)))
 
-console.log(`export const big_dictionary = ${JSON.stringify(big)}`)
+console.log(`export const big_dictionary = new Set(${JSON.stringify(big)})`)
 console.log(`export const small_dictionary = ${JSON.stringify(small)}`)

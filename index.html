@@ -1,14 +1,39 @@
 <html lang="en">
-	<head>
-		<link rel="stylesheet" href="styles.css">
-        <title>World clone</title>
-	</head>
-	<body>
-		<div id="gamespace" class="gamespace" >
-			<div id="grid" > </div>
-			<div id="status" class="status" > </div>
-		</div>
-        <div id="keyboard" class="keyboard"></div>
-		<script src="src/index.js" type="module"> </script>
-	</body>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <title>World clone</title>
+  </head>
+  <body>
+    <div id="gamespace" class="gamespace">
+      <div id="grid"></div>
+    </div>
+    <div id="keyboard" class="keyboard"></div>
+    <div id="modal-background" class="modal-background"></div>
+    <div id="stats" class="stats">
+      <h1>STATISTICS</h1>
+      <div class="row">
+        <div class="column">
+          <div id="played" class="stat"></div>
+          <div class="stat-label">Played</div>
+        </div>
+        <div class="column">
+          <div id="win-rate" class="stat"></div>
+          <div class="stat-label">Win %</div>
+        </div>
+        <div class="column">
+          <div id="streak" class="stat"></div>
+          <div class="stat-label">Current<br>Streak</div>
+        </div>
+        <div class="column">
+          <div id="max-streak" class="stat"></div>
+          <div class="stat-label">Max<br>Streak</div>
+        </div>
+        <button id="close-stats" class="icon-button">&#x2573</button>
+      </div>
+      <h1>GUESS DISTRIBUTION</h1>
+      <div id="graph" class="graph"></div>
+      <div id="status" class="status"></div>
+    </div>
+    <script src="src/index.js" type="module"></script>
+  </body>
 </html>

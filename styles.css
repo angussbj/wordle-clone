@@ -3,6 +3,7 @@ body {
 	background-color: #121214;
 	align-items: center;
 	justify-content: center;
+    font-family: sans-serif;
 }
 
 .status {
@@ -21,6 +22,7 @@ body {
 .row {
 	display: flex;
 	flex-direction: row;
+    align-items: center;
 }
 
 .square {
@@ -28,7 +30,6 @@ body {
 	width: 64px;
 	height: 64px;
 	justify-content: center;
-	font-family: sans-serif;
     align-items: center;
     font-size: 2rem;
     line-height: 2rem;
@@ -60,9 +61,9 @@ body {
     background-color: #616364;
 }
 
-.button {
+.play-again {
 	position: relative;
-	bottom: 0;
+	bottom: -24px;
 	width: 80px;
 	height: 30px;
 }
@@ -82,4 +83,81 @@ body {
     margin: 3px;
     border: none;
     border-radius: 4px
+}
+
+.stats {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 380px;
+    background-color: #1a1a1b;
+    border-radius: 8px;
+    padding: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 16px;
+}
+
+.stat-label {
+    font-size: 12px;
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 24px;
+}
+
+.stat {
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 48px;
+}
+
+.graph {
+    width: 340px;
+}
+
+.bar {
+    min-width: 18px;
+    height: 20px;
+    margin: 2px 2px 2px 6px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.icon-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-weight: bold
+}
+
+.modal-background {
+    background-color: #00000055;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    visibility: hidden;
 }

@@ -4,6 +4,7 @@ import { Keyboard } from "./Keyboard.js"
 import { Grid } from "./Grid.js"
 import { Status } from "./Status.js"
 import { PlayAgainButton } from "./PlayAgainButton.js"
+import { Statistics } from "./Statistics.js"
 
 export class Wordle {
   constructor(maxAttempts, wordLength) {
@@ -16,6 +17,7 @@ export class Wordle {
     this.grid = new Grid(maxAttempts, wordLength);
     this.status = new Status()
     this.playAgainButton = new PlayAgainButton(() => this.reset())
+    this.stats = new  Statistics(maxAttempts)
   }
 
   setup() {
@@ -47,7 +49,6 @@ export class Wordle {
   }
 
   reset() {
-    console.log("Hi")
     this.grid.reset()
     this.keyboard.reset()
     this.status.reset()
@@ -103,12 +104,16 @@ export class Wordle {
 
   recordLoss() {
     this.status.setLost(this.target)
+    this.stats.recordLoss()
     this.playAgainButton.show()
+    this.stats.show()
   }
 
   recordWin() {
     this.status.setWon()
+    this.stats.recordWin(this.cursor.wordIndex + 1)
     this.playAgainButton.show()
+    this.stats.show()
   }
 
   type(char) {
