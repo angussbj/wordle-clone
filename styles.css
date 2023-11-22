@@ -1,35 +1,35 @@
 body {
-	display: flex;
-	background-color: #121214;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    background-color: #121214;
+    align-items: center;
+    justify-content: center;
     font-family: sans-serif;
 }
 
 .status {
-	font-family: sans-serif;
-	font-size: 18px;
-	margin: 24px;
+    font-family: sans-serif;
+    font-size: 18px;
+    margin: 24px;
 }
 
 .gamespace {
-	display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     height: 600px;
 }
 
 .row {
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
 .square {
-	display: flex;
-	width: 64px;
-	height: 64px;
-	justify-content: center;
+    display: flex;
+    width: 64px;
+    height: 64px;
+    justify-content: center;
     align-items: center;
     font-size: 2rem;
     line-height: 2rem;
@@ -42,15 +42,15 @@ body {
 }
 
 .correct {
-	background-color: #538d4e;
+    background-color: #538d4e;
 }
 
 .partially-correct {
-	background-color: #b59f3b;
+    background-color: #b59f3b;
 }
 
 .incorrect {
-	background-color: #3a3a3b;
+    background-color: #3a3a3b;
 }
 
 .untested {
@@ -62,10 +62,10 @@ body {
 }
 
 .play-again {
-	position: relative;
-	bottom: -24px;
-	width: 80px;
-	height: 30px;
+    position: relative;
+    bottom: -24px;
+    width: 80px;
+    height: 30px;
 }
 
 .keyboard {
@@ -160,4 +160,28 @@ h1 {
     top: 0;
     bottom: 0;
     visibility: hidden;
+}
+
+@keyframes confetti-animation {
+    from {
+        rotate: 0;
+        top: -10%;
+        width: 30px;
+        height: 70px;
+    }
+    to {
+        rotate: 3turn;
+        top: 110%;
+        width: 30px;
+        height: 70px;
+    }
+}
+
+.confetti {
+    animation-name: confetti-animation;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    position: absolute;
+    left: 100px;
+    background-color: blue;
 }

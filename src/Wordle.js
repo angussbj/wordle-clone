@@ -1,5 +1,5 @@
 import { big_dictionary, small_dictionary } from "./dictionary.js"
-import { randomInt } from "./utilities.js"
+import { randomInt, randomColor } from "./utilities.js"
 import { Keyboard } from "./Keyboard.js"
 import { Grid } from "./Grid.js"
 import { Status } from "./Status.js"
@@ -17,7 +17,7 @@ export class Wordle {
     this.grid = new Grid(maxAttempts, wordLength);
     this.status = new Status()
     this.playAgainButton = new PlayAgainButton(() => this.reset())
-    this.stats = new  Statistics(maxAttempts)
+    this.stats = new Statistics(maxAttempts)
   }
 
   setup() {
@@ -114,6 +114,21 @@ export class Wordle {
     this.stats.recordWin(this.cursor.wordIndex + 1)
     this.playAgainButton.show()
     this.stats.show()
+    this.showConfetti(150)
+  }
+
+  showConfetti(n) {
+    if (n <= 0) return
+    const piece = document.createElement("div")
+    piece.classList.add("confetti")
+    piece.style.left = `${Math.random() * 100}%`
+    piece.style.backgroundColor = randomColor()
+    const scale = Math.random() + 0.5
+    piece.style.transform = `scale(${scale})`
+    piece.style.animationDuration = `${4 + Math.random()}s`
+    document.body.appendChild(piece)
+    setTimeout(() => this.showConfetti(n - 1), randomInt(100))
+    setTimeout(() => piece.remove(), 5000)
   }
 
   type(char) {
