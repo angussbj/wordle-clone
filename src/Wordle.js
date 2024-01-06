@@ -114,7 +114,7 @@ export class Wordle {
     this.stats.recordWin(this.cursor.wordIndex + 1)
     this.playAgainButton.show()
     this.stats.show()
-    this.showConfetti(150)
+    this.showConfetti(100)
   }
 
   showConfetti(n) {
@@ -127,7 +127,7 @@ export class Wordle {
     piece.style.transform = `scale(${scale})`
     piece.style.animationDuration = `${4 + Math.random()}s`
     document.body.appendChild(piece)
-    setTimeout(() => this.showConfetti(n - 1), randomInt(100))
+    setTimeout(() => this.showConfetti(n - 1), randomInt(100 + 10000 / (n * n + 1)))
     setTimeout(() => piece.remove(), 5000)
   }
 
