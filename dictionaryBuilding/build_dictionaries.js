@@ -6,6 +6,39 @@ const names = getFiveLetterWordsFrom("names.txt")
 const commonPlurals = getFiveLetterWordsFrom("commonPlurals.txt")
 const bad = getFiveLetterWordsFrom("bad.txt")
 const manualExclusions = getFiveLetterWordsFrom("manualExclusions.txt")
+const manualAdditionsHard = getFiveLetterWordsFrom("manualAdditionsHard.txt")
+
+class SetWrapper {
+  constructor(set) {
+    this.set = set
+  }
+
+  union(other) {
+    let _union = new Set(this.set)
+    for (let elem of other) {
+      _union.add(elem)
+    }
+    return new SetWrapper(_union)
+  }
+
+  intersection(other) {
+    let _intersection = new Set()
+    for (let elem of other) {
+      if (this.set.has(elem)) {
+        _intersection.add(elem)
+      }
+    }
+    return new SetWrapper(_intersection)
+  }
+
+  minus(other) {
+    let _diff = new Set(this.set)
+    for (let elem of other) {
+      _diff.delete(elem)
+    }
+    return new SetWrapper(_diff)
+  }
+}
 
 function getFiveLetterWordsFrom(fileName) {
   return new Set(
@@ -17,35 +50,25 @@ function getFiveLetterWordsFrom(fileName) {
   );
 }
 
-function union(setA, setB) {
-  let _union = new Set(setA)
-  for (let elem of setB) {
-    _union.add(elem)
-  }
-  return _union
-}
-
-function intersection(setA, setB) {
-  let _intersection = new Set()
-  for (let elem of setB) {
-    if (setA.has(elem)) {
-      _intersection.add(elem)
-    }
-  }
-  return _intersection
-}
-
-function setMinus(setA, setB) {
-  let _union = new Set(setA)
-  for (let elem of setB) {
-    _union.delete(elem)
-  }
-  return _union
-}
-
-
-const small = Array.from(setMinus(setMinus(setMinus(setMinus(intersection(intersection(fiveHundredK, tenK), scrabble), names), commonPlurals), manualExclusions), bad))
-const big = Array.from(union(fiveHundredK, union(tenK, scrabble)))
+const small = Array.from(
+  new SetWrapper(tenK)
+    .intersection(scrabble)
+    .minus(names)
+    .minus(commonPlurals)
+    .union(manualAdditionsHard)
+    .minus(manualExclusions)
+    .minus(bad)
+    .set
+)
+const big = Array.from(
+  new SetWrapper(fiveHundredK)
+    .union(tenK)
+    .union(scrabble)
+    .set
+)
 
 console.log(`export const big_dictionary = new Set(${JSON.stringify(big)})`)
 console.log(`export const small_dictionary = ${JSON.stringify(small)}`)
+
+// Write to a file
+// fs.writeFile("temp.txt", big.join('\n'), () => {})
